@@ -1,18 +1,34 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Dice : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	[SerializeField] private List<Sprite> diceSides;
+	private SpriteRenderer spriteRenderer;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	private void Awake()
+	{
+		spriteRenderer = GetComponent<SpriteRenderer>();
+	}
+
+	private void Update()
+	{
+		if (Input.GetMouseButtonDown(0))
+		{
+			Roll();
+		}
+	}
+
+	private void Roll()
+	{
+		spriteRenderer.sprite = diceSides[GenerateRandomNumber()-1];
+	}
+
+	private int GenerateRandomNumber()
+	{
+		return Mathf.CeilToInt(Random.Range(1, 7));
+	}
 }

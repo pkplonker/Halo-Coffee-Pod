@@ -625,7 +625,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &825406545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -638,6 +638,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88fa5d8b4b033a4459adb1bcb69efae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  diceSides:
+  - {fileID: 21300000, guid: 3dcd10cc52f65d645ad027c2a67cc09e, type: 3}
+  - {fileID: 21300000, guid: acf84354998c79741a0d003bb0e8829a, type: 3}
+  - {fileID: 21300000, guid: df7ae7dee79bae345a3ab9c9c0551a07, type: 3}
+  - {fileID: 21300000, guid: 9b447b28e11a727489987dd27a7ac4fa, type: 3}
+  - {fileID: 21300000, guid: ed7006c8f67c4a14ab635753500ff498, type: 3}
+  - {fileID: 21300000, guid: e0ecccbaac8183a4ebc8e0b2ef58c47a, type: 3}
 --- !u!212 &825406546
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -679,7 +686,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a2d6898a91ead94b968f810e145c877, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -699,7 +706,7 @@ Transform:
   m_GameObject: {fileID: 825406544}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.18, y: -3.97, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

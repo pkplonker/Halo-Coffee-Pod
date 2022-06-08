@@ -22,6 +22,7 @@ public class BoardCreator : MonoBehaviour
 
 	public void BuildBoard()
 	{
+		tiles.Clear();
 		Debug.LogWarning("starting build");
 		int offsetY = boardSize / 2;
 		int offsetX = Mathf.CeilToInt(boardSize / 1.5f);
