@@ -8,6 +8,20 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private GameObject playerPrefab;
 	private GameObject player;
 	[SerializeField] private BoardCreator boardCreator;
+	public static bool canInteract = true;
+	public static GameManager instance;
+
+	private void Awake()
+	{
+		if (instance == null)
+		{
+			instance = this;
+		}
+		else if (instance != this)
+		{
+			Destroy(gameObject);
+		}
+	}
 
 	private void Start()
 	{

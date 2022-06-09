@@ -23,13 +23,12 @@ public class BoardCreator : MonoBehaviour
 	public void BuildBoard()
 	{
 		tiles.Clear();
-		Debug.LogWarning("starting build");
-		int offsetY = boardSize / 2;
-		int offsetX = Mathf.CeilToInt(boardSize / 1.5f);
+		var offsetY = boardSize / 2;
+		var offsetX = Mathf.CeilToInt(boardSize / 1.5f);
 
-		for (int x = 0; x < boardSize; x++)
+		for (var x = 0; x < boardSize; x++)
 		{
-			for (int y = 0; y < boardSize; y++)
+			for (var y = 0; y < boardSize; y++)
 			{
 				Tile tile = Instantiate(tilePrefab, new Vector3(x - offsetX, y - offsetY, 0), Quaternion.identity,
 					transform).GetComponent<Tile>();
@@ -37,14 +36,14 @@ public class BoardCreator : MonoBehaviour
 				if (y % 2 != 0)
 				{
 					id = ((y * boardSize) + (boardSize - x));
-					Debug.Log("x= "+x+ " ,y= "+ y+ ", -1- calculated id = " + id);
 				}
 				else
 				{
-					id = (y * boardSize + (x+1));
-					Debug.Log("x= "+x+ " ,y= "+ y+ ", -2- calculated id = " + id);
+					id = (y * boardSize + (x + 1));
 				}
-				tile.Setup(cam, id, id % 2 == 0 ? primaryColor : secondaryColor, id % 2 != 0 ? primaryColor : secondaryColor);
+
+				tile.Setup(cam, id, id % 2 == 0 ? primaryColor : secondaryColor,
+					id % 2 != 0 ? primaryColor : secondaryColor);
 				tiles.Add(id, tile);
 			}
 		}
