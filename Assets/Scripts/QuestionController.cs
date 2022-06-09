@@ -19,6 +19,10 @@ public class QuestionController : MonoBehaviour
 	[SerializeField] private Transform answerContainer;
 	[SerializeField] private GameObject answerPrefab;
 	private List<Button> buttons = new List<Button>();
+	[SerializeField] private Color correctColor;
+	[SerializeField] private Color wrongColor;
+	[SerializeField] private float closeDelay;
+
 	private void Awake()
 	{
 		canvasGroup = GetComponent<CanvasGroup>();
@@ -34,15 +38,13 @@ public class QuestionController : MonoBehaviour
 
 	private void OnMoveComplete()
 	{
+		GameManager.canInteract = false;
 		currentQuestion = ChooseRandomQuestion();
 		if (currentQuestion == null)
 		{
 			CloseUI();
 			return;
 		}
-
-		GameManager.canInteract = false;
-
 		ShowQuestion(currentQuestion);
 		ShowUI();
 	}
@@ -61,13 +63,15 @@ public class QuestionController : MonoBehaviour
 	private void ShowQuestion(QuestionData currentQuestion)
 	{
 		//populate question
-		for (int i = 0; i < currentQuestion.answers.Length; i++)
+		for (var i = 0; i < currentQuestion.answers.Length; i++)
 		{
 			var button = Instantiate(answerPrefab, answerContainer).GetComponent<Button>();
-			button.onClick.AddListener(delegate { ClickAnswer(i); });
+			var i1 = i;
+			button.onClick.AddListener(delegate { ClickAnswer(i1); });
 			button.GetComponentInChildren<TextMeshProUGUI>().text = currentQuestion.answers[i];
 			buttons.Add(button);
 		}
+		questionText.text = currentQuestion.question;
 	}
 
 	private void CloseUI()
@@ -88,21 +92,64 @@ public class QuestionController : MonoBehaviour
 		canvasGroup.blocksRaycasts = true;
 	}
 
-	public void ClickAnswer(int answer)
+	private void ClickAnswer(int selectedAnswer)
 	{
-		if (answer == currentQuestion.correctAnswer)
+		if (selectedAnswer == currentQuestion.correctAnswer)
 		{
-			Debug.Log("Correct");
 			OnCorrectAnswer?.Invoke();
 		}
 		else
 		{
-			Debug.Log("Wrong");
 			OnWrongAnswer?.Invoke();
 		}
 
+		DisplayResult(selectedAnswer);
 		RemoveQuestion();
+	}
+
+	private void DisplayResult(int selectedAnswerIndex)
+	{
+		if (currentQuestion.correctAnswer == selectedAnswerIndex+1)
+		{
+			ShowCorrectAnswer();
+		}
+		else
+		{
+			ShowCorrectAnswer();
+			ShowWrongAnswer(selectedAnswerIndex);
+		}
+
+		StartCoroutine(CloseDelayCoroutine());
+	}
+
+	private IEnumerator CloseDelayCoroutine()
+	{
+		yield return new WaitForSeconds(closeDelay);
 		CloseUI();
+	}
+
+	private void ShowWrongAnswer(int selectedAnswerIndex)
+	{
+		buttons[selectedAnswerIndex].colors = new ColorBlock
+		{
+			normalColor = wrongColor,
+			highlightedColor = wrongColor,
+			pressedColor = wrongColor,
+			disabledColor = wrongColor,
+			colorMultiplier = 1
+		};
+	}
+
+	private void ShowCorrectAnswer()
+	{
+		buttons[currentQuestion.correctAnswer-1].colors = new ColorBlock
+		{
+			normalColor = correctColor,
+			highlightedColor = correctColor,
+			pressedColor = correctColor,
+			disabledColor = correctColor,
+			colorMultiplier = 1
+		};
 	}
 
 	private void RemoveQuestion()

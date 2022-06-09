@@ -9,8 +9,8 @@ public class PlayerMovement : MonoBehaviour
 	private float moveSpeed = .2f;
 	private int startCell = 1;
 	private int currentCell;
-	public event Action OnWin; 
-	public event Action OnMoveComplete; 
+	public event Action OnWin;
+	public event Action OnMoveComplete;
 
 	private void Start()
 	{
@@ -36,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
 
 	private void Move(int moveAmount)
 	{
-		
 		if (currentCell + moveAmount <= BoardCreator.tiles.Count)
 		{
 			StartCoroutine(MoveCoroutine(moveAmount));
@@ -65,9 +64,8 @@ public class PlayerMovement : MonoBehaviour
 			yield return null;
 		}
 
-		CheckWin();
 		GameManager.canInteract = true;
-
+		CheckWin();
 	}
 
 	private void CheckWin()
@@ -86,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (moveAmount + currentCell >= BoardCreator.tiles.Count)
 		{
-			return BoardCreator.tiles.Count ;
+			return BoardCreator.tiles.Count;
 		}
 
 		return currentCell + moveAmount;

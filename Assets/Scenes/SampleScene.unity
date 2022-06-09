@@ -973,6 +973,9 @@ MonoBehaviour:
   questionText: {fileID: 1322370937}
   answerContainer: {fileID: 1370150079}
   answerPrefab: {fileID: 2534419256161029152, guid: 7fea07490172597489349b89c532599a, type: 3}
+  correctColor: {r: 0, g: 1, b: 0.16855001, a: 1}
+  wrongColor: {r: 0.9150943, g: 0.19638094, b: 0.15107687, a: 1}
+  closeDelay: 3
 --- !u!1 &1199795027
 GameObject:
   m_ObjectHideFlags: 0
