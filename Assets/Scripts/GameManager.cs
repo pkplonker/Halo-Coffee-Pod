@@ -6,10 +6,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 	[SerializeField] private GameObject playerPrefab;
-	private GameObject player;
+	private PlayerMovement player;
 	[SerializeField] private BoardCreator boardCreator;
 	public static bool canInteract = true;
 	public static GameManager instance;
+	[SerializeField] QuestionController questionController;
 
 	private void Awake()
 	{
@@ -28,22 +29,23 @@ public class GameManager : MonoBehaviour
 		canInteract = true;
 		boardCreator.BuildBoard();
 		SpawnPlayer();
+		questionController.Init(this, player);
 	}
 
 	private void OnDisable()
 	{
 		if (player == null) return;
-		player.GetComponent<PlayerMovement>().OnWin -= OnWin;
+		player.OnWin -= OnWin;
 	}
 
 	private void SpawnPlayer()
 	{
-		player = Instantiate(playerPrefab, BoardCreator.tiles[1].transform.position, Quaternion.identity);
-		player.GetComponent<PlayerMovement>().OnWin += OnWin;
+		player = Instantiate(playerPrefab, BoardCreator.tiles[1].transform.position, Quaternion.identity).GetComponent<PlayerMovement>();
+		player.OnWin += OnWin;
 	}
 
 	private void OnWin()
 	{
-		Debug.Log("WINNERRRR");
+		Debug.LogWarning("WINNERRRR");
 	}
 }

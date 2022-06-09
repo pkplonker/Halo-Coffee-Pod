@@ -11,6 +11,9 @@ public class BoardCreator : MonoBehaviour
 	[SerializeField] private int boardSize;
 	[SerializeField] private Color primaryColor;
 	[SerializeField] private Color secondaryColor;
+	[SerializeField] private Color startColor;
+	[SerializeField] private Color endColor;
+
 	public static Dictionary<int, Tile> tiles { get; private set; } = new Dictionary<int, Tile>();
 	private Camera cam;
 
@@ -45,8 +48,21 @@ public class BoardCreator : MonoBehaviour
 				tile.Setup(cam, id, id % 2 == 0 ? primaryColor : secondaryColor,
 					id % 2 != 0 ? primaryColor : secondaryColor, y != 0 && id!=(boardSize*boardSize), 
 					y != boardSize - 1 &&id!=(boardSize*boardSize));
+				SetStartAndEndColors(id, tile);
 				tiles.Add(id, tile);
 			}
+		}
+	}
+
+	private void SetStartAndEndColors(int id, Tile tile)
+	{
+		if (id == boardSize * boardSize)
+		{
+			tile.SetColor(startColor);
+		}
+		else if (id == 1)
+		{
+			tile.SetColor(endColor);
 		}
 	}
 }

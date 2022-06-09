@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
 	private int startCell = 1;
 	private int currentCell;
 	public event Action OnWin; 
+	public event Action OnMoveComplete; 
+
 	private void Start()
 	{
 		currentCell = startCell;
@@ -34,10 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private void Move(int moveAmount)
 	{
-		if (currentCell + moveAmount == BoardCreator.tiles.Count)
-		{
-			OnWin?.Invoke();
-		}
+		
 		if (currentCell + moveAmount <= BoardCreator.tiles.Count)
 		{
 			StartCoroutine(MoveCoroutine(moveAmount));
@@ -63,8 +62,23 @@ public class PlayerMovement : MonoBehaviour
 			}
 
 
-			GameManager.canInteract = true;
 			yield return null;
+		}
+
+		CheckWin();
+		GameManager.canInteract = true;
+
+	}
+
+	private void CheckWin()
+	{
+		if (currentCell == BoardCreator.tiles.Count)
+		{
+			OnWin?.Invoke();
+		}
+		else
+		{
+			OnMoveComplete?.Invoke();
 		}
 	}
 

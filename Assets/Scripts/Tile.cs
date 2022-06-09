@@ -35,7 +35,7 @@ public class Tile : MonoBehaviour
 		this.canBeSnake = canBeSnake;
 		this.canBeLadder = canBeLadder;
 	}
-	private void SetColor(Color cellColor)
+	public void SetColor(Color cellColor)
 	{
 		spriteRenderer.color = cellColor;
 	}
@@ -57,4 +57,6 @@ public class Tile : MonoBehaviour
 		this.id = id;
 		gameObject.name = id.ToString();
 	}
+
+
 }
