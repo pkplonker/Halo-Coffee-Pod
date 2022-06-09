@@ -25,12 +25,25 @@ public class GameManager : MonoBehaviour
 
 	private void Start()
 	{
+		canInteract = true;
 		boardCreator.BuildBoard();
 		SpawnPlayer();
+	}
+
+	private void OnDisable()
+	{
+		if (player == null) return;
+		player.GetComponent<PlayerMovement>().OnWin -= OnWin;
 	}
 
 	private void SpawnPlayer()
 	{
 		player = Instantiate(playerPrefab, BoardCreator.tiles[1].transform.position, Quaternion.identity);
+		player.GetComponent<PlayerMovement>().OnWin += OnWin;
+	}
+
+	private void OnWin()
+	{
+		Debug.Log("WINNERRRR");
 	}
 }

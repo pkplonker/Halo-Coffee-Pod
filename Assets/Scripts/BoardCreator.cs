@@ -43,7 +43,8 @@ public class BoardCreator : MonoBehaviour
 				}
 
 				tile.Setup(cam, id, id % 2 == 0 ? primaryColor : secondaryColor,
-					id % 2 != 0 ? primaryColor : secondaryColor);
+					id % 2 != 0 ? primaryColor : secondaryColor, y != 0 && id!=(boardSize*boardSize), 
+					y != boardSize - 1 &&id!=(boardSize*boardSize));
 				tiles.Add(id, tile);
 			}
 		}

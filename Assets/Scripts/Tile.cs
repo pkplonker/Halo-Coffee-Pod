@@ -10,6 +10,8 @@ public class Tile : MonoBehaviour
 	private Canvas canvas;
 	private TextMeshProUGUI textMeshProUGUI;
 	private int id;
+	[SerializeField] private bool canBeSnake;
+	[SerializeField] private  bool canBeLadder;
 
 	private void Awake()
 	{
@@ -19,14 +21,20 @@ public class Tile : MonoBehaviour
 	}
 
 
-	public void Setup(Camera cam, int id, Color cellColor, Color textColor)
+	public void Setup(Camera cam, int id, Color cellColor, Color textColor, bool canBeSnake, bool canBeLadder)
 	{
 		SetCanvas(cam);
 		SetID(id);
 		SetText(id, textColor);
 		SetColor(cellColor);
+		SetCanBeSnakeAndLadder(canBeSnake,canBeLadder);
 	}
 
+	private void SetCanBeSnakeAndLadder(bool canBeSnake, bool canBeLadder)
+	{
+		this.canBeSnake = canBeSnake;
+		this.canBeLadder = canBeLadder;
+	}
 	private void SetColor(Color cellColor)
 	{
 		spriteRenderer.color = cellColor;

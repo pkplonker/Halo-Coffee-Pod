@@ -1,18 +1,80 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	private float moveSpeed = .2f;
+	private int startCell = 1;
+	private int currentCell;
+	public event Action OnWin; 
+	private void Start()
+	{
+		currentCell = startCell;
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	private void OnEnable()
+	{
+		Dice.onRollComplete += Move;
+	}
+
+	private void OnDisable()
+	{
+		Dice.onRollComplete -= Move;
+	}
+
+
+	private void MoveOneCell()
+	{
+		currentCell++;
+		transform.position = BoardCreator.tiles[currentCell].transform.position;
+	}
+
+	private void Move(int moveAmount)
+	{
+		if (currentCell + moveAmount == BoardCreator.tiles.Count)
+		{
+			OnWin?.Invoke();
+		}
+		if (currentCell + moveAmount <= BoardCreator.tiles.Count)
+		{
+			StartCoroutine(MoveCoroutine(moveAmount));
+		}
+		else
+		{
+			Debug.Log("Overshot");
+		}
+	}
+
+	IEnumerator MoveCoroutine(int moveAmount)
+	{
+		GameManager.canInteract = false;
+		int target = IncrementTarget(moveAmount);
+		float timer = 0;
+		while (currentCell != target)
+		{
+			timer += Time.deltaTime;
+			if (timer > moveSpeed)
+			{
+				timer = 0;
+				MoveOneCell();
+			}
+
+
+			GameManager.canInteract = true;
+			yield return null;
+		}
+	}
+
+	private int IncrementTarget(int moveAmount)
+	{
+		if (moveAmount + currentCell >= BoardCreator.tiles.Count)
+		{
+			return BoardCreator.tiles.Count ;
+		}
+
+		return currentCell + moveAmount;
+	}
 }

@@ -867,7 +867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 3278478964533521824, guid: 42953496d2bc96a44aa83dce6d4627f3, type: 3}
-  boardSize: 10
+  boardSize: 3
   primaryColor: {r: 0, g: 0, b: 0, a: 1}
   secondaryColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1199795029

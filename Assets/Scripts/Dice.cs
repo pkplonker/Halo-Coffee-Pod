@@ -56,7 +56,7 @@ public class Dice : MonoBehaviour, IPointerClickHandler
 		}
 
 		GameManager.canInteract = true;
-		onRollComplete?.Invoke(currentRoll);
+		onRollComplete?.Invoke(currentRoll+1);
 	}
 
 
