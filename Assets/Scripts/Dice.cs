@@ -69,6 +69,7 @@ public class Dice : MonoBehaviour, IPointerClickHandler
 
 	public static void DebugRoll(int x)
 	{
+		if (!GameManager.canInteract) return;
 		onRollComplete?.Invoke(x);
 	}
 }

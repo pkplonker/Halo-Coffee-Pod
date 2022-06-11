@@ -383,9 +383,9 @@ MonoBehaviour:
   ladderMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   snakeMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   defaultLadderJump: 22
-  minLadderJump: 8
-  defaultSnakeJump: -22
-  minSnakeJump: -10
+  minLadderJump: 10
+  defaultSnakeJump: 22
+  minSnakeJump: 10
 --- !u!1 &384779342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1253,6 +1253,25 @@ MonoBehaviour:
   questions:
   - {fileID: 11400000, guid: 9e82821f3a88edd47866dee26a656c3e, type: 2}
   - {fileID: 11400000, guid: 8c05f768744229c4a91acde416bec4ac, type: 2}
+  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
+  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
+  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
+  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
+  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
+  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
+  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
+  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
+  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
+  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
+  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
+  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
+  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
+  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
+  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
+  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
+  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
+  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
+  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
   - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
   - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
   - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
