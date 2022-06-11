@@ -132,7 +132,14 @@ public class QuestionController : MonoBehaviour
 
 	private IEnumerator CloseDelayCoroutine()
 	{
-		yield return new WaitForSeconds(closeDelay);
+		float timer = 0;
+		while (timer< closeDelay)
+		{
+			timer += Time.deltaTime;
+			GameManager.canInteract= false;
+			yield return null;
+		}
+		
 		CloseUI();
 	}
 
