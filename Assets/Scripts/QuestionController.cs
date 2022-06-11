@@ -22,6 +22,7 @@ public class QuestionController : MonoBehaviour
 	[SerializeField] private Color correctColor;
 	[SerializeField] private Color wrongColor;
 	[SerializeField] private float closeDelay;
+	private bool optionChosenThisQuestion = false;
 	public PlayerMovement GetPlayer() => player;
 
 	private void Awake()
@@ -29,6 +30,7 @@ public class QuestionController : MonoBehaviour
 		canvasGroup = GetComponent<CanvasGroup>();
 		unusedQuestions = new List<QuestionData>(questions);
 		CloseUI();
+		
 	}
 
 	private void OnDisable()
@@ -93,10 +95,13 @@ public class QuestionController : MonoBehaviour
 		canvasGroup.alpha = 1;
 		canvasGroup.interactable = true;
 		canvasGroup.blocksRaycasts = true;
+		optionChosenThisQuestion = false;
 	}
 
 	private void ClickAnswer(int selectedAnswer)
 	{
+		if(optionChosenThisQuestion) return;
+		optionChosenThisQuestion = true;
 		if (selectedAnswer + 1 == currentQuestion.correctAnswer)
 		{
 			OnCorrectAnswer?.Invoke(player);

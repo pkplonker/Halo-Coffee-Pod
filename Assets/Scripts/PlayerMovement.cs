@@ -69,12 +69,20 @@ public class PlayerMovement : MonoBehaviour
 			yield return null;
 		}
 
-		GameManager.canInteract = true;
-		CheckWin();
+		var x = SNLAGenerator.snakeLadderDatas.Find(x => x.startCell == BoardCreator.tiles[currentCell]);
+		if (x != null)
+		{
+			MoveAlongLineRendererCoroutine(x.lineRenderer, x.endCell);
+		}
+		else
+		{
+			CheckWin();
+		}
 	}
 
 	private void CheckWin()
 	{
+		GameManager.canInteract = true;
 		if (currentCell == BoardCreator.tiles.Count)
 		{
 			OnWin?.Invoke();
@@ -95,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
 		return currentCell + moveAmount;
 	}
 
-	public void MoveAlongLadder(LineRenderer lr, Tile destinationTile)
+	public void MoveAlongSnakeLadder(LineRenderer lr, Tile destinationTile)
 	{
 		GameManager.canInteract = false;
 		StartCoroutine(MoveAlongLineRendererCoroutine(lr, destinationTile));

@@ -384,6 +384,8 @@ MonoBehaviour:
   snakeMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   defaultLadderJump: 22
   minLadderJump: 8
+  defaultSnakeJump: -22
+  minSnakeJump: -10
 --- !u!1 &384779342
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,11 +12,13 @@ public class SNLAGenerator : MonoBehaviour
 	[SerializeField] private Material snakeMaterial;
 	[SerializeField] private int defaultLadderJump = 22;
 	[SerializeField] private int minLadderJump = 10;
-
-	List<SnakeLadderData> snakeLadderDatas = new List<SnakeLadderData>();
+	[SerializeField] private int defaultSnakeJump = 22;
+	[SerializeField] private int minSnakeJump = 10;
+	public static List<SnakeLadderData> snakeLadderDatas;
 
 	private void Start()
 	{
+		snakeLadderDatas = new List<SnakeLadderData>();
 		player = questionController.GetPlayer();
 	}
 
@@ -35,6 +37,50 @@ public class SNLAGenerator : MonoBehaviour
 	private void GenerateSnake(PlayerMovement player)
 	{
 		this.player = player;
+		var tile = BoardCreator.tiles[player.GetCurrentCell()];
+		if (!tile.GetCanBeSnake()) return;
+		var destinationTile = CalculateSnakeEnd(tile);
+		if (destinationTile == null) return;
+		var start = snakeLadderDatas.Find(s => s.startCell == tile || s.startCell == destinationTile);
+		if (start != null) return;
+		var lr = BuildLadder(player, destinationTile, tile, true);
+		snakeLadderDatas.Add(new SnakeLadderData(tile, destinationTile, lr));
+		player.MoveAlongSnakeLadder(lr, destinationTile);
+	}
+
+	private Tile CalculateSnakeEnd(Tile tile)
+	{
+		var snakeJump = defaultLadderJump;
+		var loopAmount = defaultSnakeJump - minSnakeJump;
+		for (var i = 0; i < loopAmount; i++)
+		{
+			Debug.Log("Testing cell " + (tile.GetId() + snakeJump));
+			if (player.GetCurrentCell() - snakeJump > BoardCreator.tiles.Count)
+			{
+				Debug.Log((tile.GetId()- snakeJump) + " Cell too high");
+			}
+			else if (player.GetCurrentCell() - snakeJump <= 0)
+			{
+				Debug.Log((tile.GetId() - snakeJump) + " Cell too low");
+			}
+			else if (snakeLadderDatas.Find(x => x.startCell == tile) != null)
+			{
+				Debug.Log((tile.GetId() - snakeJump) + " cell already used as start");
+			}
+			else if (snakeLadderDatas.Find(x => x.endCell == tile) != null)
+			{
+				Debug.Log((tile.GetId() - snakeJump) + " cell already used as end");
+			}
+			else if (BoardCreator.tiles[player.GetCurrentCell() - snakeJump].GetCanBeSnake())
+			{
+				return BoardCreator.tiles[player.GetCurrentCell() - snakeJump];
+			}
+
+			snakeJump--;
+		}
+
+		Debug.Log("failed to find destination");
+		return null;
 	}
 
 	private void GenerateLadder(PlayerMovement player)
@@ -50,24 +96,47 @@ public class SNLAGenerator : MonoBehaviour
 		var start = snakeLadderDatas.Find(s => s.startCell == tile || s.startCell == destinationTile);
 		if (start != null) return;
 
-		var lr = BuildLadder(player, destinationTile, tile);
+		var lr = BuildLadder(player, destinationTile, tile, false);
 		snakeLadderDatas.Add(new SnakeLadderData(tile, destinationTile, lr));
-		player.MoveAlongLadder(lr, destinationTile);
+		player.MoveAlongSnakeLadder(lr, destinationTile);
 	}
 
-	private LineRenderer BuildLadder(PlayerMovement player, Tile destinationTile, Tile tile)
+	private LineRenderer BuildLadder(PlayerMovement player, Tile destinationTile, Tile tile, bool isSnake)
 	{
 		var go = new GameObject("Ladder");
 		var lr = go.AddComponent<LineRenderer>();
 
 		lr.startWidth = 0.5f;
 		lr.endWidth = 0.5f;
-		lr.positionCount = 2;
-		lr.material = ladderMaterial;
-		lr.startColor = Color.green;
-		lr.endColor = Color.green;
+
+		lr.positionCount = isSnake ? 3 : 2;
+		if (isSnake)
+		{
+			lr.material = snakeMaterial;
+			lr.startColor = Color.red;
+			lr.endColor = Color.red;
+		}
+		else
+		{
+			lr.material = ladderMaterial;
+			lr.startColor = Color.green;
+			lr.endColor = Color.green;
+		}
+
 		lr.SetPosition(0, tile.transform.position);
-		lr.SetPosition(1, destinationTile.transform.position);
+		if (isSnake)
+		{
+			lr.SetPosition(1,
+				tile.transform.position + ((destinationTile.transform.position - tile.transform.position) / 2) +
+				new Vector3(0,  UnityEngine.Random.Range(-1.5f,1.5f), 0));
+
+			lr.SetPosition(2, destinationTile.transform.position);
+		}
+		else
+		{
+			lr.SetPosition(1, destinationTile.transform.position);
+		}
+
 		return lr;
 	}
 
@@ -94,6 +163,7 @@ public class SNLAGenerator : MonoBehaviour
 			{
 				return BoardCreator.tiles[player.GetCurrentCell() + ladderJump];
 			}
+
 			ladderJump--;
 		}
 
