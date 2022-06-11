@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 		var x = SNLAGenerator.snakeLadderDatas.Find(x => x.startCell == BoardCreator.tiles[currentCell]);
 		if (x != null)
 		{
-			MoveAlongLineRendererCoroutine(x.lineRenderer, x.endCell);
+			StartCoroutine(MoveAlongLineRendererCoroutine(x.lineRenderer, x.endCell));
 		}
 		else
 		{

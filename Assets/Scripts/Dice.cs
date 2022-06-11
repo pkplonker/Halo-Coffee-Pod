@@ -66,4 +66,9 @@ public class Dice : MonoBehaviour, IPointerClickHandler
 
 		Roll();
 	}
+
+	public static void DebugRoll(int x)
+	{
+		onRollComplete?.Invoke(x);
+	}
 }
