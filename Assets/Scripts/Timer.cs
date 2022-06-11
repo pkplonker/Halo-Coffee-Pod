@@ -10,6 +10,7 @@ public class Timer : MonoBehaviour
 	public event Action OnTimeEnd;
 	private float currentTime;
 	private bool timeRunning;
+	public float GetTime() => currentTime;
 
 	private void Start()
 	{

@@ -13,8 +13,8 @@ public class QuestionController : MonoBehaviour
 	private QuestionData currentQuestion;
 	private List<QuestionData> unusedQuestions = new List<QuestionData>();
 	private CanvasGroup canvasGroup;
-	public event Action OnCorrectAnswer;
-	public event Action OnWrongAnswer;
+	public event Action<PlayerMovement> OnCorrectAnswer;
+	public event Action<PlayerMovement> OnWrongAnswer;
 	[SerializeField] private TextMeshProUGUI questionText;
 	[SerializeField] private Transform answerContainer;
 	[SerializeField] private GameObject answerPrefab;
@@ -22,6 +22,7 @@ public class QuestionController : MonoBehaviour
 	[SerializeField] private Color correctColor;
 	[SerializeField] private Color wrongColor;
 	[SerializeField] private float closeDelay;
+	public PlayerMovement GetPlayer() => player;
 
 	private void Awake()
 	{
@@ -45,6 +46,7 @@ public class QuestionController : MonoBehaviour
 			CloseUI();
 			return;
 		}
+
 		ShowQuestion(currentQuestion);
 		ShowUI();
 	}
@@ -71,6 +73,7 @@ public class QuestionController : MonoBehaviour
 			button.GetComponentInChildren<TextMeshProUGUI>().text = currentQuestion.answers[i];
 			buttons.Add(button);
 		}
+
 		questionText.text = currentQuestion.question;
 	}
 
@@ -94,13 +97,13 @@ public class QuestionController : MonoBehaviour
 
 	private void ClickAnswer(int selectedAnswer)
 	{
-		if (selectedAnswer == currentQuestion.correctAnswer)
+		if (selectedAnswer + 1 == currentQuestion.correctAnswer)
 		{
-			OnCorrectAnswer?.Invoke();
+			OnCorrectAnswer?.Invoke(player);
 		}
 		else
 		{
-			OnWrongAnswer?.Invoke();
+			OnWrongAnswer?.Invoke(player);
 		}
 
 		DisplayResult(selectedAnswer);
@@ -109,7 +112,7 @@ public class QuestionController : MonoBehaviour
 
 	private void DisplayResult(int selectedAnswerIndex)
 	{
-		if (currentQuestion.correctAnswer == selectedAnswerIndex+1)
+		if (currentQuestion.correctAnswer == selectedAnswerIndex + 1)
 		{
 			ShowCorrectAnswer();
 		}
@@ -142,7 +145,7 @@ public class QuestionController : MonoBehaviour
 
 	private void ShowCorrectAnswer()
 	{
-		buttons[currentQuestion.correctAnswer-1].colors = new ColorBlock
+		buttons[currentQuestion.correctAnswer - 1].colors = new ColorBlock
 		{
 			normalColor = correctColor,
 			highlightedColor = correctColor,

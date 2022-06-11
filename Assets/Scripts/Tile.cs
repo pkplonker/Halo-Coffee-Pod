@@ -10,8 +10,13 @@ public class Tile : MonoBehaviour
 	private Canvas canvas;
 	private TextMeshProUGUI textMeshProUGUI;
 	private int id;
-	[SerializeField] private bool canBeSnake;
-	[SerializeField] private  bool canBeLadder;
+	private bool canBeSnake;
+	private bool canBeLadder;
+	private bool isSnakeOrLadder = false;
+	public bool GetCanBeSnake() => canBeSnake;
+	public bool GetCanBeLadder() => canBeLadder;
+	public bool GetIsSnakeOrLadder() => isSnakeOrLadder;
+	public int GetId() => id;
 
 	private void Awake()
 	{
@@ -27,7 +32,7 @@ public class Tile : MonoBehaviour
 		SetID(id);
 		SetText(id, textColor);
 		SetColor(cellColor);
-		SetCanBeSnakeAndLadder(canBeSnake,canBeLadder);
+		SetCanBeSnakeAndLadder(canBeSnake, canBeLadder);
 	}
 
 	private void SetCanBeSnakeAndLadder(bool canBeSnake, bool canBeLadder)
@@ -35,6 +40,7 @@ public class Tile : MonoBehaviour
 		this.canBeSnake = canBeSnake;
 		this.canBeLadder = canBeLadder;
 	}
+
 	public void SetColor(Color cellColor)
 	{
 		spriteRenderer.color = cellColor;
@@ -57,6 +63,4 @@ public class Tile : MonoBehaviour
 		this.id = id;
 		gameObject.name = id.ToString();
 	}
-
-
 }

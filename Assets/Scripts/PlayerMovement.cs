@@ -7,13 +7,18 @@ using UnityEngine.PlayerLoop;
 public class PlayerMovement : MonoBehaviour
 {
 	private float moveSpeed = .2f;
+	private float snakeLadderSpeed = 2f;
+
 	private int startCell = 1;
 	private int currentCell;
 	public event Action OnWin;
 	public event Action OnMoveComplete;
+	private PlayerMovement player;
+	public int GetCurrentCell() => currentCell;
 
 	private void Start()
 	{
+		player = GameManager.instance.GetPlayer();
 		currentCell = startCell;
 	}
 
@@ -88,5 +93,37 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 		return currentCell + moveAmount;
+	}
+
+	public void MoveAlongLadder(LineRenderer lr, Tile destinationTile)
+	{
+		GameManager.canInteract = false;
+		StartCoroutine(MoveAlongLineRendererCoroutine(lr, destinationTile));
+	}
+
+	private IEnumerator MoveAlongLineRendererCoroutine(LineRenderer lr, Tile destinationTile)
+	{
+		int currentTarget = 1;
+		while (transform.position != lr.GetPosition(currentTarget))
+		{
+			GameManager.canInteract = false;
+
+			transform.position = Vector3.MoveTowards(transform.position, lr.GetPosition(currentTarget),
+				snakeLadderSpeed * Time.deltaTime);
+			if (Vector3.Distance(transform.position, lr.GetPosition(currentTarget)) < 0.1f)
+			{
+				currentTarget++;
+				if (currentTarget == lr.positionCount)
+				{
+					break;
+				}
+			}
+
+			yield return null;
+		}
+
+		currentCell = destinationTile.GetId();
+		Debug.Log("Current cell = " + currentCell);
+		GameManager.canInteract = true;
 	}
 }

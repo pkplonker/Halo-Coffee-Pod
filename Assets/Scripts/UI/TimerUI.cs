@@ -26,7 +26,7 @@ public class TimerUI : MonoBehaviour
       timerText.text = FormatSeconds(time);
    }
 
-   private static string FormatSeconds(float elapsed)
+   public static string FormatSeconds(float elapsed)
    {
       var d = (int)(elapsed * 100.0f);
       var minutes = d / (60 * 100);
