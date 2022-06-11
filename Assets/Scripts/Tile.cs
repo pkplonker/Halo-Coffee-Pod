@@ -12,10 +12,8 @@ public class Tile : MonoBehaviour
 	private int id;
 	private bool canBeSnake;
 	private bool canBeLadder;
-	private bool isSnakeOrLadder = false;
 	public bool GetCanBeSnake() => canBeSnake;
 	public bool GetCanBeLadder() => canBeLadder;
-	public bool GetIsSnakeOrLadder() => isSnakeOrLadder;
 	public int GetId() => id;
 
 	private void Awake()

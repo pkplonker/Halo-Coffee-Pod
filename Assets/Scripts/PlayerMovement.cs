@@ -123,7 +123,6 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 		currentCell = destinationTile.GetId();
-		Debug.Log("Current cell = " + currentCell);
 		GameManager.canInteract = true;
 	}
 }
