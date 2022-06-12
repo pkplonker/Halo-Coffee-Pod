@@ -8,21 +8,23 @@ using Random = UnityEngine.Random;
 
 public class QuestionController : MonoBehaviour
 {
-	private PlayerMovement player;
 	[SerializeField] private List<QuestionData> questions;
-	private QuestionData currentQuestion;
-	private List<QuestionData> unusedQuestions = new List<QuestionData>();
-	private CanvasGroup canvasGroup;
-	public event Action<PlayerMovement> OnCorrectAnswer;
-	public event Action<PlayerMovement> OnWrongAnswer;
 	[SerializeField] private TextMeshProUGUI questionText;
 	[SerializeField] private Transform answerContainer;
 	[SerializeField] private GameObject answerPrefab;
-	private List<Button> buttons = new List<Button>();
 	[SerializeField] private Color correctColor;
 	[SerializeField] private Color wrongColor;
 	[SerializeField] private float closeDelay;
+
+	private PlayerMovement player;
+	private QuestionData currentQuestion;
+	private List<QuestionData> unusedQuestions = new List<QuestionData>();
+	private CanvasGroup canvasGroup;
+	private List<Button> buttons = new List<Button>();
 	private bool optionChosenThisQuestion = false;
+
+	public event Action<PlayerMovement> OnCorrectAnswer;
+	public event Action<PlayerMovement> OnWrongAnswer;
 	public PlayerMovement GetPlayer() => player;
 
 	private void Awake()
@@ -30,7 +32,6 @@ public class QuestionController : MonoBehaviour
 		canvasGroup = GetComponent<CanvasGroup>();
 		unusedQuestions = new List<QuestionData>(questions);
 		CloseUI();
-		
 	}
 
 	private void OnDisable()
@@ -100,16 +101,10 @@ public class QuestionController : MonoBehaviour
 
 	private void ClickAnswer(int selectedAnswer)
 	{
-		if(optionChosenThisQuestion) return;
+		if (optionChosenThisQuestion) return;
 		optionChosenThisQuestion = true;
-		if (selectedAnswer + 1 == currentQuestion.correctAnswer)
-		{
-			OnCorrectAnswer?.Invoke(player);
-		}
-		else
-		{
-			OnWrongAnswer?.Invoke(player);
-		}
+		if (selectedAnswer + 1 == currentQuestion.correctAnswer) OnCorrectAnswer?.Invoke(player);
+		else OnWrongAnswer?.Invoke(player);
 
 		DisplayResult(selectedAnswer);
 		RemoveQuestion();
@@ -117,10 +112,7 @@ public class QuestionController : MonoBehaviour
 
 	private void DisplayResult(int selectedAnswerIndex)
 	{
-		if (currentQuestion.correctAnswer == selectedAnswerIndex + 1)
-		{
-			ShowCorrectAnswer();
-		}
+		if (currentQuestion.correctAnswer == selectedAnswerIndex + 1) ShowCorrectAnswer();
 		else
 		{
 			ShowCorrectAnswer();
@@ -133,13 +125,13 @@ public class QuestionController : MonoBehaviour
 	private IEnumerator CloseDelayCoroutine()
 	{
 		float timer = 0;
-		while (timer< closeDelay)
+		while (timer < closeDelay)
 		{
 			timer += Time.deltaTime;
-			GameManager.canInteract= false;
+			GameManager.canInteract = false;
 			yield return null;
 		}
-		
+
 		CloseUI();
 	}
 
@@ -167,8 +159,5 @@ public class QuestionController : MonoBehaviour
 		};
 	}
 
-	private void RemoveQuestion()
-	{
-		unusedQuestions.Remove(currentQuestion);
-	}
+	private void RemoveQuestion() => unusedQuestions.Remove(currentQuestion);
 }

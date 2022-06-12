@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SFXPlayer : MonoBehaviour
@@ -18,36 +15,26 @@ public class SFXPlayer : MonoBehaviour
 
 	private void Awake()
 	{
-		if (instance == null)
-		{
-			instance = this;
-		}
+		if (instance == null) instance = this;
+
 		else if (instance != this)
 		{
 			Destroy(gameObject);
+			return;
 		}
 
 		DontDestroyOnLoad(gameObject);
 	}
 
-	private void Start()
-	{
-		audioSource = GetComponent<AudioSource>();
-	}
+	private void Start() => audioSource = GetComponent<AudioSource>();
 
-	public void RegisterGameManager(GameManager manager)
-	{
-		manager.OnNewGame += OnNewGame;
-	}
+
+	public void RegisterGameManager(GameManager manager) => manager.OnNewGame += OnNewGame;
+
 
 	private void OnNewGame(PlayerMovement player, QuestionController questionController)
 	{
-		if (questionController)
-		{
-			this.questionController.OnCorrectAnswer -= OnCorrectAnswer;
-			this.questionController.OnWrongAnswer -= OnWrongAnswer;
-		}
-
+		
 		this.questionController = questionController;
 		this.questionController.OnCorrectAnswer += OnCorrectAnswer;
 		this.questionController.OnWrongAnswer += OnWrongAnswer;
@@ -80,30 +67,20 @@ public class SFXPlayer : MonoBehaviour
 		audioSource.PlayOneShot(clip);
 	}
 
-	private void OnCorrectAnswer(PlayerMovement obj)
-	{
-		PlayClip(correctAnswerSound);
-	}
+	private void OnCorrectAnswer(PlayerMovement obj) => PlayClip(correctAnswerSound);
 
-	private void OnWrongAnswer(PlayerMovement obj)
-	{
-		PlayClip(wrongAnswerSound);
-	}
 
-	private void OnSlide()
-	{
-		PlayClip(slideSound);
-	}
+	private void OnWrongAnswer(PlayerMovement obj)=>PlayClip(wrongAnswerSound);
+	
 
-	private void OnMoveComplete()
-	{
-		audioSource.Stop();
-	}
+	private void OnSlide()=> PlayClip(slideSound);
+	
 
-	private void OnMove()
-	{
-		PlayClip(moveSound);
-	}
+	private void OnMoveComplete()=> audioSource.Stop();
+	
+
+	private void OnMove()=> PlayClip(moveSound);
+	
 
 	private void OnWin()
 	{

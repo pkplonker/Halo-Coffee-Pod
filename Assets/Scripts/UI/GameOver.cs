@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,38 +12,29 @@ namespace UI
 		[SerializeField] private string loseMessage;
 		[SerializeField] private string timeMessage = "Your time was: ";
 		[SerializeField] private TextMeshProUGUI timeText;
+		public void Menu() => SceneManager.LoadScene($"MainMenu");
+		public void Restart() => SceneManager.LoadScene($"Game");
+
+		public void Exit()
+		{
+#if UNITY_EDITOR
+			UnityEditor.EditorApplication.isPlaying = false;
+#else
+         Application.Quit();
+#elif (UNITY_WEBGL)
+    Application.OpenURL("https://halo.coffee/");
+#endif
+		}
 
 		private void Awake()
 		{
 			scoreText.text = winLoseContainer.isWin ? winMessage : loseMessage;
 			if (winLoseContainer.isWin)
 			{
-				timeText.enabled=true;
+				timeText.enabled = true;
 				timeText.text = timeMessage + TimerUI.FormatSeconds(winLoseContainer.time);
 			}
-			else
-			{
-				timeText.enabled = false;
-			}
-		}
-
-		public void Menu()
-		{
-			Debug.Log("Menu pressed");
-			SceneManager.LoadScene($"MainMenu");
-		}
-
-		public void Restart()
-		{
-			Debug.Log("Restart pressed");
-
-			SceneManager.LoadScene($"Game");
-		}
-
-		public void Exit()
-		{
-			Debug.Log("Quitting...");
-			Application.Quit();
+			else timeText.enabled = false;
 		}
 	}
 }

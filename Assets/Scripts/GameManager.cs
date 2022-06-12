@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,19 +12,13 @@ public class GameManager : MonoBehaviour
 	[SerializeField] QuestionController questionController;
 	[SerializeField] private WinLoseContainer winLoseContainer;
 	[SerializeField] private Timer timer;
-	public PlayerMovement GetPlayer() => player;
 	public event Action<PlayerMovement, QuestionController> OnNewGame;
 
 	private void Awake()
 	{
-		if (instance == null)
-		{
-			instance = this;
-		}
-		else if (instance != this)
-		{
-			Destroy(gameObject);
-		}
+		if (instance == null) instance = this;
+		else if (instance != this) Destroy(gameObject);
+		
 	}
 
 	private void Start()
@@ -36,7 +28,7 @@ public class GameManager : MonoBehaviour
 		boardCreator.BuildBoard();
 		SpawnPlayer();
 		questionController.Init(this, player);
-		OnNewGame.Invoke(player, questionController);
+		OnNewGame?.Invoke(player, questionController);
 	}
 
 	private void OnDisable()

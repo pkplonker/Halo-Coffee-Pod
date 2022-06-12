@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -16,43 +14,28 @@ public class PlayerMovement : MonoBehaviour
 	public event Action OnMove;
 	public event Action OnSlide;
 
-	private PlayerMovement player;
 	public int GetCurrentCell() => currentCell;
 
-	private void Start()
-	{
-		player = GameManager.instance.GetPlayer();
-		currentCell = startCell;
-	}
+	private void Start() => currentCell = startCell;
 
-	private void OnEnable()
-	{
-		Dice.onRollComplete += Move;
-	}
 
-	private void OnDisable()
-	{
-		Dice.onRollComplete -= Move;
-	}
+	private void OnEnable() => Dice.onRollComplete += Move;
+
+
+	private void OnDisable() => Dice.onRollComplete -= Move;
 
 
 	private void MoveOneCell()
 	{
 		currentCell++;
 		transform.position = BoardCreator.tiles[currentCell].transform.position;
-		OnMove.Invoke();
+		OnMove?.Invoke();
 	}
 
 	private void Move(int moveAmount)
 	{
-		if (currentCell + moveAmount <= BoardCreator.tiles.Count)
-		{
-			StartCoroutine(MoveCoroutine(moveAmount));
-		}
-		else
-		{
-			Debug.Log("Overshot");
-		}
+		if (currentCell + moveAmount <= BoardCreator.tiles.Count) StartCoroutine(MoveCoroutine(moveAmount));
+		else Debug.Log("Overshot");
 	}
 
 	IEnumerator MoveCoroutine(int moveAmount)
@@ -69,41 +52,24 @@ public class PlayerMovement : MonoBehaviour
 				MoveOneCell();
 			}
 
-
 			yield return null;
 		}
 
 		var x = SNLAGenerator.snakeLadderDatas.Find(x => x.startCell == BoardCreator.tiles[currentCell]);
-		if (x != null)
-		{
-			StartCoroutine(MoveAlongLineRendererCoroutine(x.lineRenderer, x.endCell));
-		}
-		else
-		{
-			CheckWin();
-		}
+		if (x != null) StartCoroutine(MoveAlongLineRendererCoroutine(x.lineRenderer, x.endCell));
+		else CheckWin();
 	}
 
 	private void CheckWin()
 	{
 		GameManager.canInteract = true;
-		if (currentCell == BoardCreator.tiles.Count)
-		{
-			OnWin?.Invoke();
-		}
-		else
-		{
-			OnMoveComplete?.Invoke();
-		}
+		if (currentCell == BoardCreator.tiles.Count) OnWin?.Invoke();
+		else OnMoveComplete?.Invoke();
 	}
 
 	private int IncrementTarget(int moveAmount)
 	{
-		if (moveAmount + currentCell >= BoardCreator.tiles.Count)
-		{
-			return BoardCreator.tiles.Count;
-		}
-
+		if (moveAmount + currentCell >= BoardCreator.tiles.Count) return BoardCreator.tiles.Count;
 		return currentCell + moveAmount;
 	}
 
@@ -115,8 +81,8 @@ public class PlayerMovement : MonoBehaviour
 
 	private IEnumerator MoveAlongLineRendererCoroutine(LineRenderer lr, Tile destinationTile)
 	{
-		OnSlide.Invoke();
-		int currentTarget = 1;
+		OnSlide?.Invoke();
+		var currentTarget = 1;
 		while (transform.position != lr.GetPosition(currentTarget))
 		{
 			GameManager.canInteract = false;
@@ -126,10 +92,7 @@ public class PlayerMovement : MonoBehaviour
 			if (Vector3.Distance(transform.position, lr.GetPosition(currentTarget)) < 0.1f)
 			{
 				currentTarget++;
-				if (currentTarget == lr.positionCount)
-				{
-					break;
-				}
+				if (currentTarget == lr.positionCount) break;
 			}
 
 			yield return null;

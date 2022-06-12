@@ -14,21 +14,13 @@ public class Dice : MonoBehaviour, IPointerClickHandler
 	private int currentRoll;
 	public static event Action<int> onRollComplete;
 
-	private void Awake()
-	{
-		spriteRenderer = GetComponent<SpriteRenderer>();
-	}
-
+	private void Awake() => spriteRenderer = GetComponent<SpriteRenderer>();
+	private int GenerateRandomNumber() => Mathf.CeilToInt(Random.Range(1, 7));
 
 	private void Roll()
 	{
 		if (!GameManager.canInteract) return;
 		StartCoroutine(RollCoroutine());
-	}
-
-	private int GenerateRandomNumber()
-	{
-		return Mathf.CeilToInt(Random.Range(1, 7));
 	}
 
 	private void ShowNewNumber()
@@ -56,14 +48,13 @@ public class Dice : MonoBehaviour, IPointerClickHandler
 		}
 
 		GameManager.canInteract = true;
-		onRollComplete?.Invoke(currentRoll+1);
+		onRollComplete?.Invoke(currentRoll + 1);
 	}
 
 
 	public void OnPointerClick(PointerEventData eventData)
 	{
 		if (eventData.button != PointerEventData.InputButton.Left) return;
-
 		Roll();
 	}
 

@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Timer : MonoBehaviour
@@ -12,10 +10,8 @@ public class Timer : MonoBehaviour
 	private bool timeRunning;
 	public float GetTime() => currentTime;
 
-	private void Start()
-	{
-		timeRunning = true;
-	}
+	private void Start() => timeRunning = true;
+
 
 	private void Update()
 	{

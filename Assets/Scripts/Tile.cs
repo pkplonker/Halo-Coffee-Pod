@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -39,10 +36,8 @@ public class Tile : MonoBehaviour
 		this.canBeLadder = canBeLadder;
 	}
 
-	public void SetColor(Color cellColor)
-	{
-		spriteRenderer.color = cellColor;
-	}
+	public void SetColor(Color cellColor) => spriteRenderer.color = cellColor;
+
 
 	private void SetText(int id, Color textColor)
 	{
