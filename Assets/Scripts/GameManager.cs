@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private WinLoseContainer winLoseContainer;
 	[SerializeField] private Timer timer;
 	public PlayerMovement GetPlayer() => player;
+	public event Action<PlayerMovement, QuestionController> OnNewGame;
 
 	private void Awake()
 	{
@@ -31,9 +32,11 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{
 		canInteract = true;
+		SFXPlayer.instance.RegisterGameManager(this);
 		boardCreator.BuildBoard();
 		SpawnPlayer();
 		questionController.Init(this, player);
+		OnNewGame.Invoke(player, questionController);
 	}
 
 	private void OnDisable()

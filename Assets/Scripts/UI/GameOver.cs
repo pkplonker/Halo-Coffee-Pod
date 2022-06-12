@@ -30,11 +30,14 @@ namespace UI
 
 		public void Menu()
 		{
+			Debug.Log("Menu pressed");
 			SceneManager.LoadScene($"MainMenu");
 		}
 
 		public void Restart()
 		{
+			Debug.Log("Restart pressed");
+
 			SceneManager.LoadScene($"Game");
 		}
 

@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
 	private int currentCell;
 	public event Action OnWin;
 	public event Action OnMoveComplete;
+	public event Action OnMove;
+	public event Action OnSlide;
+
 	private PlayerMovement player;
 	public int GetCurrentCell() => currentCell;
 
@@ -37,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		currentCell++;
 		transform.position = BoardCreator.tiles[currentCell].transform.position;
+		OnMove.Invoke();
 	}
 
 	private void Move(int moveAmount)
@@ -111,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private IEnumerator MoveAlongLineRendererCoroutine(LineRenderer lr, Tile destinationTile)
 	{
+		OnSlide.Invoke();
 		int currentTarget = 1;
 		while (transform.position != lr.GetPosition(currentTarget))
 		{
