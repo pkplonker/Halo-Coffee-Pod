@@ -12,9 +12,16 @@ namespace UI
 		{
 			canvasGroup = GetComponent<CanvasGroup>();
 			Close();
+			
 		}
 
-		public void Close()
+		public void CloseUI()
+		{
+			SFXPlayer.instance.ClickSound();
+			Close();
+		}
+
+		private void Close()
 		{
 			canvasGroup.alpha = 0;
 			canvasGroup.interactable = false;
@@ -28,7 +35,11 @@ namespace UI
 			canvasGroup.blocksRaycasts = true;
 		}
 
-		public void OpenSHLinkedIn() => Application.OpenURL("https://www.linkedin.com/in/stuartheath1/");
+		public void OpenSHLinkedIn()
+		{
+			SFXPlayer.instance.ClickSound();
+			Application.OpenURL("https://www.linkedin.com/in/stuartheath1/");
+		}
 
 
 		public void SetMasterVolume(float volume) => audioMixer.SetFloat("MasterVol", Mathf.Log10(volume) * 20);

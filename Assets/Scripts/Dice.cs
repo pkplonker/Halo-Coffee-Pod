@@ -20,6 +20,7 @@ public class Dice : MonoBehaviour, IPointerClickHandler
 	private void Roll()
 	{
 		if (!GameManager.canInteract) return;
+		SFXPlayer.instance.PlayDiceRoll();
 		StartCoroutine(RollCoroutine());
 	}
 

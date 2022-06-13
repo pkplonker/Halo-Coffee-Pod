@@ -11,7 +11,8 @@ public class SFXPlayer : MonoBehaviour
 	[SerializeField] private AudioClip slideSound;
 	[SerializeField] private AudioClip correctAnswerSound;
 	[SerializeField] private AudioClip wrongAnswerSound;
-
+	[SerializeField] private AudioClip click;
+	[SerializeField] private AudioClip diceRoll;
 
 	private void Awake()
 	{
@@ -26,6 +27,10 @@ public class SFXPlayer : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 	}
 
+	public void PlayDiceRoll()
+	{
+		PlayClip(diceRoll);
+	}
 	private void Start() => audioSource = GetComponent<AudioSource>();
 
 
@@ -34,7 +39,6 @@ public class SFXPlayer : MonoBehaviour
 
 	private void OnNewGame(PlayerMovement player, QuestionController questionController)
 	{
-		
 		this.questionController = questionController;
 		this.questionController.OnCorrectAnswer += OnCorrectAnswer;
 		this.questionController.OnWrongAnswer += OnWrongAnswer;
@@ -48,7 +52,6 @@ public class SFXPlayer : MonoBehaviour
 		}
 
 		this.player = player;
-
 		player.OnMove += OnMove;
 		player.OnSlide += OnSlide;
 		player.OnWin += OnWin;
@@ -70,17 +73,17 @@ public class SFXPlayer : MonoBehaviour
 	private void OnCorrectAnswer(PlayerMovement obj) => PlayClip(correctAnswerSound);
 
 
-	private void OnWrongAnswer(PlayerMovement obj)=>PlayClip(wrongAnswerSound);
-	
+	private void OnWrongAnswer(PlayerMovement obj) => PlayClip(wrongAnswerSound);
 
-	private void OnSlide()=> PlayClip(slideSound);
-	
 
-	private void OnMoveComplete()=> audioSource.Stop();
-	
+	private void OnSlide() => PlayClip(slideSound);
 
-	private void OnMove()=> PlayClip(moveSound);
-	
+
+	private void OnMoveComplete() => audioSource.Stop();
+
+
+	private void OnMove() => PlayClip(moveSound);
+
 
 	private void OnWin()
 	{
@@ -96,5 +99,10 @@ public class SFXPlayer : MonoBehaviour
 		player.OnSlide -= OnSlide;
 		player.OnWin -= OnWin;
 		player.OnMoveComplete -= OnMoveComplete;
+	}
+
+	public void ClickSound()
+	{
+		PlayClip(click);
 	}
 }

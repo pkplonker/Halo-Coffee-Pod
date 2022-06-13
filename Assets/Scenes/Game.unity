@@ -792,7 +792,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ed7006c8f67c4a14ab635753500ff498, type: 3}
   - {fileID: 21300000, guid: e0ecccbaac8183a4ebc8e0b2ef58c47a, type: 3}
   rollRefreshSpeed: 0.2
-  totalRollTime: 1
+  totalRollTime: 3
 --- !u!212 &825406546
 SpriteRenderer:
   m_ObjectHideFlags: 0
