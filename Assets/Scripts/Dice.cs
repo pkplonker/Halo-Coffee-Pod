@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class Dice : MonoBehaviour, IPointerClickHandler
@@ -13,8 +14,27 @@ public class Dice : MonoBehaviour, IPointerClickHandler
 	[SerializeField] private float totalRollTime = 1f;
 	private int currentRoll;
 	public static event Action<int> onRollComplete;
+	public static event Action onSRollStarted;
+	private Sprite defaultSprite;
 
 	private void Awake() => spriteRenderer = GetComponent<SpriteRenderer>();
+
+	private void Start()
+	{
+		defaultSprite = spriteRenderer.sprite;
+	}
+
+	private void OnEnable() => QuestionController.OnCorrectAnswer += ShowDefaultSprite;
+	private void OnDisable() => QuestionController.OnCorrectAnswer -= ShowDefaultSprite;
+
+
+	private void ShowDefaultSprite(PlayerMovement obj)
+	{
+		spriteRenderer.sprite = defaultSprite;
+	}
+
+
+
 	private int GenerateRandomNumber() => Mathf.CeilToInt(Random.Range(1, 7));
 
 	private void Roll()
@@ -33,6 +53,7 @@ public class Dice : MonoBehaviour, IPointerClickHandler
 	private IEnumerator RollCoroutine()
 	{
 		GameManager.canInteract = false;
+		onSRollStarted?.Invoke();
 		float totalRollTimer = 0;
 		float chanageTimer = 0;
 		while (totalRollTimer < totalRollTime)

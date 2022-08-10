@@ -22,14 +22,14 @@ public class SNLAGenerator : MonoBehaviour
 
 	private void OnEnable()
 	{
-		questionController.OnCorrectAnswer += GenerateLadder;
-		questionController.OnWrongAnswer += GenerateSnake;
+		QuestionController.OnCorrectAnswer += GenerateLadder;
+		QuestionController.OnWrongAnswer += GenerateSnake;
 	}
 
 	private void OnDisable()
 	{
-		questionController.OnCorrectAnswer -= GenerateLadder;
-		questionController.OnWrongAnswer -= GenerateSnake;
+		QuestionController.OnCorrectAnswer -= GenerateLadder;
+		QuestionController.OnWrongAnswer -= GenerateSnake;
 	}
 
 	private void GenerateSnake(PlayerMovement player)

@@ -40,8 +40,8 @@ public class SFXPlayer : MonoBehaviour
 	private void OnNewGame(PlayerMovement player, QuestionController questionController)
 	{
 		this.questionController = questionController;
-		this.questionController.OnCorrectAnswer += OnCorrectAnswer;
-		this.questionController.OnWrongAnswer += OnWrongAnswer;
+		QuestionController.OnCorrectAnswer += OnCorrectAnswer;
+		QuestionController.OnWrongAnswer += OnWrongAnswer;
 
 		if (this.player != null)
 		{

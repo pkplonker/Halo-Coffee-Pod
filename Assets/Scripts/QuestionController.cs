@@ -15,7 +15,7 @@ public class QuestionController : MonoBehaviour
 	[SerializeField] private Color correctColor;
 	[SerializeField] private Color wrongColor;
 	[SerializeField] private float closeDelay;
-
+	[SerializeField] private Image closeButton;
 	private PlayerMovement player;
 	private QuestionData currentQuestion;
 	private List<QuestionData> unusedQuestions = new List<QuestionData>();
@@ -23,8 +23,8 @@ public class QuestionController : MonoBehaviour
 	private List<Button> buttons = new List<Button>();
 	private bool optionChosenThisQuestion = false;
 
-	public event Action<PlayerMovement> OnCorrectAnswer;
-	public event Action<PlayerMovement> OnWrongAnswer;
+	public static event Action<PlayerMovement> OnCorrectAnswer;
+	public static event Action<PlayerMovement> OnWrongAnswer;
 	public PlayerMovement GetPlayer() => player;
 
 	private void Awake()
@@ -38,6 +38,7 @@ public class QuestionController : MonoBehaviour
 	{
 		if (player == null) return;
 		player.OnMoveComplete -= OnMoveComplete;
+		Dice.onSRollStarted -= OnRollStarted;
 	}
 
 	private void OnMoveComplete()
@@ -58,7 +59,17 @@ public class QuestionController : MonoBehaviour
 	{
 		this.player = player;
 		player.OnMoveComplete += OnMoveComplete;
+		Dice.onSRollStarted += OnRollStarted;
+
 	}
+
+	private void OnRollStarted()
+	{
+		CloseUI();
+	}
+
+	//ui button
+	public void CloseButton()=> CloseUI();
 
 	private QuestionData ChooseRandomQuestion()
 	{
@@ -92,6 +103,7 @@ public class QuestionController : MonoBehaviour
 
 	private void ShowUI()
 	{
+		closeButton.enabled = false;
 		GameManager.canInteract = false;
 		canvasGroup.alpha = 1;
 		canvasGroup.interactable = true;
@@ -112,28 +124,25 @@ public class QuestionController : MonoBehaviour
 
 	private void DisplayResult(int selectedAnswerIndex)
 	{
+		
+		closeButton.enabled = true;
 		if (currentQuestion.correctAnswer == selectedAnswerIndex + 1) ShowCorrectAnswer();
 		else
 		{
 			ShowCorrectAnswer();
 			ShowWrongAnswer(selectedAnswerIndex);
+			ShowAdditionalInformation();
 		}
 
-		StartCoroutine(CloseDelayCoroutine());
+		GameManager.canInteract = true;
 	}
 
-	private IEnumerator CloseDelayCoroutine()
+	private void ShowAdditionalInformation()
 	{
-		float timer = 0;
-		while (timer < closeDelay)
-		{
-			timer += Time.deltaTime;
-			GameManager.canInteract = false;
-			yield return null;
-		}
+//todo show additional information
 
-		CloseUI();
-	}
+}
+
 
 	private void ShowWrongAnswer(int selectedAnswerIndex)
 	{

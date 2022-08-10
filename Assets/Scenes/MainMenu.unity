@@ -160,7 +160,6 @@ MonoBehaviour:
   wrongAnswerSound: {fileID: 8300000, guid: c55c5b33cc675824b9ca258ffb96776c, type: 3}
   click: {fileID: 8300000, guid: 714d28d95d32e27469457925919faf68, type: 3}
   diceRoll: {fileID: 8300000, guid: 28500e0248e25cf4e97d174e6de593c8, type: 3}
-  audioMixer: {fileID: 24100000, guid: 250ce2091dfda8047874bba54a7f552c, type: 2}
 --- !u!82 &47080884
 AudioSource:
   m_ObjectHideFlags: 0
@@ -581,7 +580,7 @@ GameObject:
   - component: {fileID: 450446399}
   - component: {fileID: 450446398}
   m_Layer: 5
-  m_Name: Button
+  m_Name: CloseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
