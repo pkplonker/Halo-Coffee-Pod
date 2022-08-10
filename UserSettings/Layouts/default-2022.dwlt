@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Inspector
+  m_Title: Game
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 110
+  controlID: 114
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 41
+  controlID: 45
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 42
+  controlID: 46
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -494,21 +494,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/UI
+    - Assets/Editor
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/UI
+  - Assets/Editor
   m_LastFoldersGridSize: -1
   m_LastProjectPath: S:\Users\pkplo\OneDrive\Documents\UnityProjects\Halo-Coffee-Pod
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: 066e0000
-    m_LastClickedID: 28166
+    m_SelectedIDs: fa6d0000
+    m_LastClickedID: 28154
     m_ExpandedIDs: 00000000dc6d0000de6d000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -564,7 +564,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000000000005ad60000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -581,7 +581,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 5}
+      m_ClientGUIView: {fileID: 11}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -613,8 +613,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: -30584
-    y: -31970
+    x: 1416
+    y: 73
     width: 503
     height: 926
   m_ViewDataDictionary: {fileID: 0}
@@ -665,23 +665,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: a46b0000
-      m_LastClickedID: 27556
-      m_ExpandedIDs: 22fbfffff26a00001e6b00002e6b0000c26b0000
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 08f3ffffa6f3ffffe0f5ffff14f6ffff54f6ffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Container
-        m_OriginalName: Container
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 27378
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 4}
       m_SearchString: 
@@ -984,7 +984,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: 320, y: 240, z: 0}
     speed: 2
-    m_Value: {x: 320.00098, y: 240.00046, z: 0}
+    m_Value: {x: 320, y: 240, z: 0}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1036,7 +1036,7 @@ MonoBehaviour:
   m_Size:
     m_Target: 163.29933
     speed: 2
-    m_Value: 163.2992
+    m_Value: 163.29933
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1138,7 +1138,7 @@ MonoBehaviour:
       y: 21
       width: 1104
       height: 516
-    m_Scale: {x: 0.47777778, y: 0.47777778}
+    m_Scale: {x: 0.47777775, y: 0.47777778}
     m_Translation: {x: 552, y: 258}
     m_MarginLeft: 0
     m_MarginRight: 0
