@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using UI;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,12 +16,12 @@ public class GameManager : MonoBehaviour
 	[SerializeField] private WinLoseContainer winLoseContainer;
 	[SerializeField] private Timer timer;
 	public event Action<PlayerMovement, QuestionController> OnNewGame;
+	public event Action OnGameOver;
 
 	private void Awake()
 	{
 		if (instance == null) instance = this;
 		else if (instance != this) Destroy(gameObject);
-		
 	}
 
 	private void Start()
@@ -46,10 +49,11 @@ public class GameManager : MonoBehaviour
 
 	private void OnWin()
 	{
+		canInteract = false;
 		//do something when player wins
 		Debug.LogWarning("WINNERRRR");
 		winLoseContainer.time = timer.GetTime();
 		winLoseContainer.isWin = true;
-		SceneManager.LoadScene("GameOver");
+		OnGameOver?.Invoke();
 	}
 }

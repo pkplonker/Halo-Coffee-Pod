@@ -38,7 +38,7 @@ public class QuestionController : MonoBehaviour
 	{
 		if (player == null) return;
 		player.OnMoveComplete -= OnMoveComplete;
-		Dice.onSRollStarted -= OnRollStarted;
+		Dice.onRollStarted -= OnRollStarted;
 	}
 
 	private void OnMoveComplete()
@@ -59,15 +59,12 @@ public class QuestionController : MonoBehaviour
 	{
 		this.player = player;
 		player.OnMoveComplete += OnMoveComplete;
-		Dice.onSRollStarted += OnRollStarted;
+		Dice.onRollStarted += OnRollStarted;
 
 	}
 
-	private void OnRollStarted()
-	{
-		CloseUI();
-	}
-
+	private void OnRollStarted()=>CloseUI();
+	
 	//ui button
 	public void CloseButton()=> CloseUI();
 
@@ -96,6 +93,11 @@ public class QuestionController : MonoBehaviour
 		GameManager.canInteract = true;
 		buttons.ForEach(b => Destroy(b.gameObject));
 		buttons.Clear();
+		if (canvasGroup == null)
+		{
+			Debug.Log("err");
+			throw new Exception("canvasGroup is null");
+		}
 		canvasGroup.alpha = 0;
 		canvasGroup.interactable = false;
 		canvasGroup.blocksRaycasts = false;

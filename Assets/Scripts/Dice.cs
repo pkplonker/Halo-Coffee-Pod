@@ -14,8 +14,9 @@ public class Dice : MonoBehaviour, IPointerClickHandler
 	[SerializeField] private float totalRollTime = 1f;
 	private int currentRoll;
 	public static event Action<int> onRollComplete;
-	public static event Action onSRollStarted;
+	public static event Action onRollStarted;
 	private Sprite defaultSprite;
+	private PlayerMovement player;
 
 	private void Awake() => spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -24,8 +25,23 @@ public class Dice : MonoBehaviour, IPointerClickHandler
 		defaultSprite = spriteRenderer.sprite;
 	}
 
-	private void OnEnable() => QuestionController.OnCorrectAnswer += ShowDefaultSprite;
-	private void OnDisable() => QuestionController.OnCorrectAnswer -= ShowDefaultSprite;
+	private void OnEnable()
+	{
+		QuestionController.OnCorrectAnswer += ShowDefaultSprite;
+		GameManager.instance.OnNewGame += RegisterPlayer;
+
+	} 
+
+	private void OnDisable()
+	{
+		GameManager.instance.OnNewGame -= RegisterPlayer;
+		QuestionController.OnCorrectAnswer -= ShowDefaultSprite;
+	}
+
+	private void RegisterPlayer(PlayerMovement player, QuestionController questionController)
+	{
+		this.player = player;
+	}
 
 
 	private void ShowDefaultSprite(PlayerMovement obj)
@@ -44,16 +60,24 @@ public class Dice : MonoBehaviour, IPointerClickHandler
 		StartCoroutine(RollCoroutine());
 	}
 
-	private void ShowNewNumber()
+	private void ShowNewNumber(bool adjust=false)
 	{
 		currentRoll = GenerateRandomNumber() - 1;
+		if(adjust) AdjustRollIfCanReachMaxCell();
 		spriteRenderer.sprite = diceSides[currentRoll];
+	}
+
+	private void AdjustRollIfCanReachMaxCell()
+	{
+		if (player.GetCurrentCell() <= BoardCreator.tiles.Count - 6) return;
+		currentRoll = BoardCreator.tiles.Count - player.GetCurrentCell() - 1;
+		Debug.Log("Overriding roll to " + currentRoll);
 	}
 
 	private IEnumerator RollCoroutine()
 	{
 		GameManager.canInteract = false;
-		onSRollStarted?.Invoke();
+		onRollStarted?.Invoke();
 		float totalRollTimer = 0;
 		float chanageTimer = 0;
 		while (totalRollTimer < totalRollTime)
@@ -63,12 +87,13 @@ public class Dice : MonoBehaviour, IPointerClickHandler
 			if (chanageTimer > rollRefreshSpeed)
 			{
 				chanageTimer = 0;
+				
 				ShowNewNumber();
 			}
 
 			yield return null;
 		}
-
+		ShowNewNumber(true);
 		GameManager.canInteract = true;
 		onRollComplete?.Invoke(currentRoll + 1);
 	}
@@ -82,6 +107,7 @@ public class Dice : MonoBehaviour, IPointerClickHandler
 
 	public static void DebugRoll(int x)
 	{
+		onRollStarted?.Invoke();
 		if (!GameManager.canInteract) return;
 		onRollComplete?.Invoke(x);
 	}
