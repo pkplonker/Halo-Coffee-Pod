@@ -1955,6 +1955,7 @@ GameObject:
   - component: {fileID: 1078785738}
   - component: {fileID: 1078785737}
   - component: {fileID: 1078785742}
+  - component: {fileID: 1078785743}
   m_Layer: 5
   m_Name: QuestionUI
   m_TagString: Untagged
@@ -2070,32 +2071,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb28f9a9ae735e54eb5c65b1cf56c972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questions:
-  - {fileID: 11400000, guid: 9e82821f3a88edd47866dee26a656c3e, type: 2}
-  - {fileID: 11400000, guid: 8c05f768744229c4a91acde416bec4ac, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
-  - {fileID: 11400000, guid: c2b116bd8464db34183a04e4b975b707, type: 2}
   questionText: {fileID: 1322370937}
   answerContainer: {fileID: 1370150079}
   answerPrefab: {fileID: 2534419256161029152, guid: 7fea07490172597489349b89c532599a, type: 3}
@@ -2103,6 +2078,20 @@ MonoBehaviour:
   wrongColor: {r: 0.9150943, g: 0.19638094, b: 0.15107687, a: 1}
   closeDelay: 3
   closeButton: {fileID: 1516678603}
+--- !u!114 &1078785743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078785736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f582dc12b6c3d4fbb6ccf94e402378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionController: {fileID: 1078785742}
+  filePath: Questions
 --- !u!1 &1199795027
 GameObject:
   m_ObjectHideFlags: 0

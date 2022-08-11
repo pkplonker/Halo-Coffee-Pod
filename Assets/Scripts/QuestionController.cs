@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 public class QuestionController : MonoBehaviour
 {
-	[SerializeField] private List<QuestionData> questions;
+	[SerializeField] private List<QuestionData> questions = new List<QuestionData>();
 	[SerializeField] private TextMeshProUGUI questionText;
 	[SerializeField] private Transform answerContainer;
 	[SerializeField] private GameObject answerPrefab;
@@ -26,6 +26,12 @@ public class QuestionController : MonoBehaviour
 	public static event Action<PlayerMovement> OnCorrectAnswer;
 	public static event Action<PlayerMovement> OnWrongAnswer;
 	public PlayerMovement GetPlayer() => player;
+
+	public void SetQuestions(List<QuestionData> qd)
+	{
+		questions = qd;
+		unusedQuestions = new List<QuestionData>(questions);
+	}
 
 	private void Awake()
 	{
@@ -60,13 +66,12 @@ public class QuestionController : MonoBehaviour
 		this.player = player;
 		player.OnMoveComplete += OnMoveComplete;
 		Dice.onRollStarted += OnRollStarted;
-
 	}
 
-	private void OnRollStarted()=>CloseUI();
-	
+	private void OnRollStarted() => CloseUI();
+
 	//ui button
-	public void CloseButton()=> CloseUI();
+	public void CloseButton() => CloseUI();
 
 	private QuestionData ChooseRandomQuestion()
 	{
@@ -98,6 +103,7 @@ public class QuestionController : MonoBehaviour
 			Debug.Log("err");
 			throw new Exception("canvasGroup is null");
 		}
+
 		canvasGroup.alpha = 0;
 		canvasGroup.interactable = false;
 		canvasGroup.blocksRaycasts = false;
@@ -126,7 +132,6 @@ public class QuestionController : MonoBehaviour
 
 	private void DisplayResult(int selectedAnswerIndex)
 	{
-		
 		closeButton.enabled = true;
 		if (currentQuestion.correctAnswer == selectedAnswerIndex + 1) ShowCorrectAnswer();
 		else
@@ -142,8 +147,7 @@ public class QuestionController : MonoBehaviour
 	private void ShowAdditionalInformation()
 	{
 //todo show additional information
-
-}
+	}
 
 
 	private void ShowWrongAnswer(int selectedAnswerIndex)

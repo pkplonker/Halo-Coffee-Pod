@@ -1,9 +1,16 @@
+using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Question", menuName = "Question")]
-public class QuestionData : ScriptableObject
+[Serializable]
+public class QuestionData 
 {
 	public string question;
 	public string[] answers;
 	public int correctAnswer;
+	public QuestionData(string question, string[] answers, int correctAnswer)
+	{
+		this.question = question;
+		this.answers = answers;
+		this.correctAnswer = correctAnswer;
+	}
 }
