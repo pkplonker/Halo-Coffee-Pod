@@ -1146,6 +1146,7 @@ MonoBehaviour:
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 0
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
@@ -1956,6 +1957,7 @@ GameObject:
   - component: {fileID: 1078785737}
   - component: {fileID: 1078785742}
   - component: {fileID: 1078785743}
+  - component: {fileID: 1078785744}
   m_Layer: 5
   m_Name: QuestionUI
   m_TagString: Untagged
@@ -2071,6 +2073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb28f9a9ae735e54eb5c65b1cf56c972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questions: []
   questionText: {fileID: 1322370937}
   answerContainer: {fileID: 1370150079}
   answerPrefab: {fileID: 2534419256161029152, guid: 7fea07490172597489349b89c532599a, type: 3}
@@ -2091,7 +2094,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questionController: {fileID: 1078785742}
-  filePath: Questions
+  filePath: Questions.csv
+  csvParser: {fileID: 1078785744}
+--- !u!114 &1078785744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078785736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db21dfebc43cfdd4baa1c4b8adbfe12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1199795027
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,14 @@
 {
   "dependencies": {
+    "com.stuartheath.stuartheathtools": {
+      "version": "https://github.com/pkplonker/Unity-Stuart-Heath-Custom-Tools.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "c4f88e8ca16f6cc7526d3222afee21344e1fcd57"
+    },
     "com.unity.2d.animation": {
-      "version": "8.0.0",
+      "version": "8.0.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -33,11 +40,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.2d.psdimporter": {
-      "version": "7.0.0",
+      "version": "7.0.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.2d.animation": "8.0.0",
+        "com.unity.2d.animation": "8.0.2",
         "com.unity.2d.common": "7.0.0",
         "com.unity.2d.sprite": "1.0.0"
       },
@@ -67,7 +74,7 @@
       "dependencies": {}
     },
     "com.unity.2d.tilemap.extras": {
-      "version": "3.0.0",
+      "version": "3.0.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -79,7 +86,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.burst": {
-      "version": "1.7.0",
+      "version": "1.7.3",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -88,7 +95,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.collab-proxy": {
-      "version": "1.15.15",
+      "version": "1.17.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -108,17 +115,17 @@
       "depth": 0,
       "source": "builtin",
       "dependencies": {
-        "com.unity.2d.animation": "8.0.0",
+        "com.unity.2d.animation": "8.0.2",
         "com.unity.2d.pixel-perfect": "5.0.1",
-        "com.unity.2d.psdimporter": "7.0.0",
+        "com.unity.2d.psdimporter": "7.0.1",
         "com.unity.2d.sprite": "1.0.0",
         "com.unity.2d.spriteshape": "8.0.0",
         "com.unity.2d.tilemap": "1.0.0",
-        "com.unity.2d.tilemap.extras": "3.0.0"
+        "com.unity.2d.tilemap.extras": "3.0.2"
       }
     },
     "com.unity.ide.rider": {
-      "version": "3.0.13",
+      "version": "3.0.15",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -127,7 +134,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.14",
+      "version": "2.0.16",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -149,8 +156,15 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.nuget.newtonsoft-json": {
+      "version": "3.0.2",
+      "depth": 2,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.render-pipelines.core": {
-      "version": "13.1.7",
+      "version": "13.1.8",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
@@ -160,14 +174,14 @@
       }
     },
     "com.unity.render-pipelines.universal": {
-      "version": "13.1.7",
+      "version": "13.1.8",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
-        "com.unity.burst": "1.5.0",
-        "com.unity.render-pipelines.core": "13.1.7",
-        "com.unity.shadergraph": "13.1.7"
+        "com.unity.burst": "1.7.3",
+        "com.unity.render-pipelines.core": "13.1.8",
+        "com.unity.shadergraph": "13.1.8"
       }
     },
     "com.unity.searcher": {
@@ -178,20 +192,22 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.services.core": {
-      "version": "1.0.1",
+      "version": "1.4.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.modules.unitywebrequest": "1.0.0"
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.nuget.newtonsoft-json": "3.0.2",
+        "com.unity.modules.androidjni": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
     "com.unity.shadergraph": {
-      "version": "13.1.7",
+      "version": "13.1.8",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
-        "com.unity.render-pipelines.core": "13.1.7",
+        "com.unity.render-pipelines.core": "13.1.8",
         "com.unity.searcher": "4.9.2"
       }
     },
@@ -237,7 +253,7 @@
       }
     },
     "com.unity.visualscripting": {
-      "version": "1.7.5",
+      "version": "1.7.8",
       "depth": 0,
       "source": "registry",
       "dependencies": {

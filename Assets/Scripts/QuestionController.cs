@@ -31,12 +31,12 @@ public class QuestionController : MonoBehaviour
 	{
 		questions = qd;
 		unusedQuestions = new List<QuestionData>(questions);
+		Logger.LogWithColor("Questions set", Color.green);
 	}
 
 	private void Awake()
 	{
 		canvasGroup = GetComponent<CanvasGroup>();
-		unusedQuestions = new List<QuestionData>(questions);
 		CloseUI();
 	}
 
