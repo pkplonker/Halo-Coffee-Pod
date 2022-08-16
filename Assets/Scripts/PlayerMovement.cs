@@ -26,12 +26,12 @@ public class PlayerMovement : MonoBehaviour
 	private void OnDisable() => Dice.onRollComplete -= Move;
 
 
-	private IEnumerator MoveOneCell(float moveSpeed, float moveDelay)
+	private IEnumerator MoveOneCell(float jumpSpeed, float moveDelay,float jumpPower)
 	{		currentCell++;
 
 		//transform.position = BoardCreator.tiles[currentCell].transform.position;
 		var target = BoardCreator.tiles[currentCell].transform.position;
-		transform.DOMove(target, moveSpeed).SetEase(Ease.InSine);
+		transform.DOJump(target,jumpPower,1, jumpSpeed).SetEase(Ease.InSine);
 		while (transform.position != target)
 		{
 			yield return null;
@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
 			timer += Time.deltaTime;
 			if (!(timer > moveSpeed)) continue;
 			timer = 0;
-			yield return StartCoroutine(MoveOneCell(0.35f, 0.15f));
+			yield return StartCoroutine(MoveOneCell(0.35f, 0.15f, 0.35f));
 
 		}
 
