@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -25,10 +26,26 @@ public class PlayerMovement : MonoBehaviour
 	private void OnDisable() => Dice.onRollComplete -= Move;
 
 
-	private void MoveOneCell()
-	{
-		currentCell++;
-		transform.position = BoardCreator.tiles[currentCell].transform.position;
+	private IEnumerator MoveOneCell(float moveSpeed, float moveDelay)
+	{		currentCell++;
+
+		//transform.position = BoardCreator.tiles[currentCell].transform.position;
+		var target = BoardCreator.tiles[currentCell].transform.position;
+		transform.DOMove(target, moveSpeed).SetEase(Ease.InSine);
+		while (transform.position != target)
+		{
+			yield return null;
+		}
+
+		var timer = moveDelay;
+		while (timer>0)
+		{
+			timer -= Time.deltaTime;
+			yield return null;
+		}
+		
+
+
 		OnMove?.Invoke();
 	}
 
@@ -46,13 +63,10 @@ public class PlayerMovement : MonoBehaviour
 		while (currentCell != target)
 		{
 			timer += Time.deltaTime;
-			if (timer > moveSpeed)
-			{
-				timer = 0;
-				MoveOneCell();
-			}
+			if (!(timer > moveSpeed)) continue;
+			timer = 0;
+			yield return StartCoroutine(MoveOneCell(0.35f, 0.15f));
 
-			yield return null;
 		}
 
 		var x = SNLAGenerator.snakeLadderDatas.Find(x => x.startCell == BoardCreator.tiles[currentCell]);
