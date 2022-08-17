@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace UI
 {
-	public class ButtonHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+	public class ButtonHoverEffectScale : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	{
 		[SerializeField] private float scaleAmount = 1.1f;
 		[SerializeField] private float scaleDuration = 0.2f;
