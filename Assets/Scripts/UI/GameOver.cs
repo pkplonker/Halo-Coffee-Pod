@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,13 +23,18 @@ namespace UI
 
 		private void OnEnable()
 		{
+			Subscribe();
+		}
+
+		private void Subscribe()
+		{
 			GameManager.instance.OnNewGame += HideUIONG;
 			GameManager.instance.OnGameOver += OnWin;
 		}
 
 		private void HideUIONG(PlayerMovement arg1, QuestionController arg2) => HideUI();
 
-		private IEnumerator ShowWinCor()
+		private IEnumerator ShowWinCor(Action callback)
 		{
 			for (var t = 0f; t < showWinScreenFadeTime; t += Time.deltaTime)
 			{
@@ -38,26 +44,27 @@ namespace UI
 			}
 
 			canvasGroup.alpha = 1;
+			callback?.Invoke();
 		}
 
 //ui button
 		public void Menu()
 		{
 			SFXPlayer.instance.ClickSound();
+			Destroy(gameObject);
 			SceneManager.LoadScene($"MainMenu");
 			HideUI();
-
 		}
 
 //ui button
 		public async void Restart()
 		{
 			SFXPlayer.instance.ClickSound();
-			var t= SceneManager.LoadSceneAsync($"Game");
+			var t = SceneManager.LoadSceneAsync($"Game");
 			t.allowSceneActivation = false;
-		await	Task.Delay(100);
-		t.allowSceneActivation = true;
-
+			await Task.Delay(100);
+			t.allowSceneActivation = true;
+			
 			HideUI();
 		}
 
@@ -83,9 +90,9 @@ namespace UI
 				return;
 			}
 
-			DontDestroyOnLoad(gameObject);
+			//DontDestroyOnLoad(gameObject);
 			HideUI();
-		} 
+		}
 
 
 		private void HideUI()
@@ -105,10 +112,24 @@ namespace UI
 			{
 				timeText.enabled = true;
 				timeText.text = timeMessage + TimerUI.FormatSeconds(winLoseContainer.time);
+				//timeText.transform.DOPunchScale(Vector3.one * 1.1f, .5f, 7, .75f);
+				//scoreText.transform.DOPunchScale(Vector3.one * 1.1f, .5f, 7, .75f);
+				timeText.transform.DOShakeScale(.5f);
+				scoreText.transform.DOShakeScale(.5f);
+
 			}
 			else timeText.enabled = false;
 
-			StartCoroutine(ShowWinCor());
+			StartCoroutine(ShowWinCor(FadeInCompleteCallback));
+		}
+
+		private void FadeInCompleteCallback()
+		{
+			if (winLoseContainer.isWin)
+			{
+				//timeText.transform.DOPunchScale(Vector3.one * 1.1f, .5f, 7, .75f);
+				//scoreText.transform.DOPunchScale(Vector3.one * 1.1f, .5f, 7, .75f);
+			}
 		}
 	}
 }

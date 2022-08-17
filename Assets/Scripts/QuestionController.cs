@@ -100,8 +100,7 @@ public class QuestionController : MonoBehaviour
 		buttons.Clear();
 		if (canvasGroup == null)
 		{
-			Debug.Log("err");
-			throw new Exception("canvasGroup is null");
+			return;
 		}
 
 		canvasGroup.alpha = 0;

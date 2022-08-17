@@ -163,7 +163,7 @@ MonoBehaviour:
   timeMessage: 'Your time was: '
   timeText: {fileID: 1544474850}
   canvasGroup: {fileID: 144238956}
-  showWinScreenFadeTime: 1.3
+  showWinScreenFadeTime: 0.7
 --- !u!114 &144238952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2182,7 +2182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 3278478964533521824, guid: 42953496d2bc96a44aa83dce6d4627f3, type: 3}
-  boardSize: 10
+  boardSize: 3
   primaryColor: {r: 0, g: 0, b: 0, a: 1}
   secondaryColor: {r: 1, g: 1, b: 1, a: 1}
   startColor: {r: 0.8867924, g: 0.14487675, b: 0.11294055, a: 1}

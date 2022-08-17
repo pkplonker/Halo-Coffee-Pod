@@ -56,4 +56,10 @@ public class GameManager : MonoBehaviour
 		winLoseContainer.isWin = true;
 		OnGameOver?.Invoke();
 	}
+#if UNITY_EDITOR
+	public void OnWinDebug()
+	{
+		OnWin();
+	}
+	#endif
 }

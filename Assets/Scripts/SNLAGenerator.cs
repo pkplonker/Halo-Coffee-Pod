@@ -144,18 +144,18 @@ public class SNLAGenerator : MonoBehaviour
 		var loopAmount = ladderJump - minLadderJump;
 		for (int i = 0; i < loopAmount; i++)
 		{
-			Debug.Log("Testing cell " + (tile.GetId() + ladderJump));
+			//Debug.Log("Testing cell " + (tile.GetId() + ladderJump));
 			if (player.GetCurrentCell() + ladderJump > BoardCreator.tiles.Count)
 			{
-				Debug.Log((tile.GetId() + ladderJump) + " Cell too high");
+				//Debug.Log((tile.GetId() + ladderJump) + " Cell too high");
 			}
 			else if (snakeLadderDatas.Find(x => x.startCell == tile) != null)
 			{
-				Debug.Log((tile.GetId() + ladderJump) + " cell already used as start");
+				//Debug.Log((tile.GetId() + ladderJump) + " cell already used as start");
 			}
 			else if (snakeLadderDatas.Find(x => x.endCell == tile) != null)
 			{
-				Debug.Log((tile.GetId() + ladderJump) + " cell already used as end");
+				//Debug.Log((tile.GetId() + ladderJump) + " cell already used as end");
 			}
 			else if (BoardCreator.tiles[player.GetCurrentCell() + ladderJump].GetCanBeLadder())
 			{
@@ -165,7 +165,7 @@ public class SNLAGenerator : MonoBehaviour
 			ladderJump--;
 		}
 
-		Debug.Log("failed to find destination");
+		//Debug.Log("failed to find destination");
 		return null;
 	}
 }
