@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -135,7 +136,7 @@ public class QuestionController : MonoBehaviour
 		if (currentQuestion.correctAnswer == selectedAnswerIndex + 1) ShowCorrectAnswer();
 		else
 		{
-			ShowCorrectAnswer();
+			ShowCorrectAnswer(false);
 			ShowWrongAnswer(selectedAnswerIndex);
 			ShowAdditionalInformation();
 		}
@@ -161,7 +162,7 @@ public class QuestionController : MonoBehaviour
 		};
 	}
 
-	private void ShowCorrectAnswer()
+	private void ShowCorrectAnswer(bool isCorrect=true)
 	{
 		buttons[currentQuestion.correctAnswer - 1].colors = new ColorBlock
 		{
@@ -171,6 +172,13 @@ public class QuestionController : MonoBehaviour
 			disabledColor = correctColor,
 			colorMultiplier = 1
 		};
+
+		if (!isCorrect)
+		{
+			buttons[currentQuestion.correctAnswer - 1].transform.DOShakeScale(.5f, 0.3f, 10, 70,  true);
+			buttons[currentQuestion.correctAnswer - 1].transform.DOShakeRotation(.5f, 0.3f, 10, 45,  true);
+
+		}
 	}
 
 	private void RemoveQuestion() => unusedQuestions.Remove(currentQuestion);

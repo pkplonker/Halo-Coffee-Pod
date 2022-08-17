@@ -93,7 +93,10 @@ public class SFXPlayer : MonoBehaviour
 
 	private void OnDisable()
 	{
-		GameManager.instance.OnNewGame -= OnNewGame;
+		if(GameManager.instance != null)
+		{
+			GameManager.instance.OnNewGame -= OnNewGame;
+		}
 		if (player == null) return;
 		player.OnMove -= OnMove;
 		player.OnSlide -= OnSlide;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -76,17 +77,23 @@ public class Dice : MonoBehaviour, IPointerClickHandler
 
 	private IEnumerator RollCoroutine()
 	{
+		var duration = 3.7f;
+		//var x = transform.DOShakeRotation(duration,40,4);
+		var sequence = DOTween.Sequence();
+		sequence.Append(transform.DOJump(transform.position, 1, 6, duration))
+			.Join(transform.DORotate(transform.rotation.eulerAngles + new Vector3(0, 0, 360), duration));
+			
 		GameManager.canInteract = false;
 		onRollStarted?.Invoke();
 		float totalRollTimer = 0;
-		float chanageTimer = 0;
+		float changeTimer = 0;
 		while (totalRollTimer < totalRollTime)
 		{
 			totalRollTimer += Time.deltaTime;
-			chanageTimer += Time.deltaTime;
-			if (chanageTimer > rollRefreshSpeed)
+			changeTimer += Time.deltaTime;
+			if (changeTimer > rollRefreshSpeed)
 			{
-				chanageTimer = 0;
+				changeTimer = 0;
 				
 				ShowNewNumber();
 			}
@@ -95,6 +102,7 @@ public class Dice : MonoBehaviour, IPointerClickHandler
 		}
 		ShowNewNumber(true);
 		GameManager.canInteract = true;
+		sequence.Complete();
 		onRollComplete?.Invoke(currentRoll + 1);
 	}
 
