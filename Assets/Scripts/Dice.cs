@@ -29,6 +29,8 @@ public class Dice : MonoBehaviour, IPointerClickHandler
 	private void OnEnable()
 	{
 		QuestionController.OnCorrectAnswer += ShowDefaultSprite;
+		QuestionController.OnWrongAnswer += ShowDefaultSprite;
+
 		GameManager.instance.OnNewGame += RegisterPlayer;
 
 	} 
@@ -37,6 +39,8 @@ public class Dice : MonoBehaviour, IPointerClickHandler
 	{
 		GameManager.instance.OnNewGame -= RegisterPlayer;
 		QuestionController.OnCorrectAnswer -= ShowDefaultSprite;
+		QuestionController.OnWrongAnswer -= ShowDefaultSprite;
+
 	}
 
 	private void RegisterPlayer(PlayerMovement player, QuestionController questionController)
